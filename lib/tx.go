@@ -159,6 +159,7 @@ func (x *Transaction) GetSignBytes() ([]byte, ErrorI) {
 		Memo:          x.Memo,
 		NetworkId:     x.NetworkId,
 		ChainId:       x.ChainId,
+		Nonce:         x.Nonce,
 	})
 }
 
@@ -193,6 +194,7 @@ type jsonTx struct {
 	Memo          string          `json:"memo,omitempty"`
 	NetworkId     uint64          `json:"networkID,omitempty"`
 	ChainId       uint64          `json:"chainID,omitempty"`
+	Nonce         uint64          `json:"nonce,omitempty"`
 }
 
 // MarshalJSON() implements the json.Marshaller interface for the Transaction type
@@ -224,6 +226,7 @@ func (x Transaction) MarshalJSON() (jsonBytes []byte, err error) {
 		Memo:          x.Memo,
 		NetworkId:     x.NetworkId,
 		ChainId:       x.ChainId,
+		Nonce:         x.Nonce,
 	})
 }
 
@@ -249,6 +252,7 @@ func (x *Transaction) UnmarshalJSON(jsonBytes []byte) (err error) {
 				Memo:          j.Memo,
 				NetworkId:     j.NetworkId,
 				ChainId:       j.ChainId,
+				Nonce:         j.Nonce,
 			}
 			return nil
 		} else if e.Code() != CodeUnknownMsgName {
@@ -281,6 +285,7 @@ func (x *Transaction) UnmarshalJSON(jsonBytes []byte) (err error) {
 			Memo:          j.Memo,
 			NetworkId:     j.NetworkId,
 			ChainId:       j.ChainId,
+			Nonce:         j.Nonce,
 		}
 		return nil
 	}
@@ -309,6 +314,7 @@ func (x *Transaction) UnmarshalJSON(jsonBytes []byte) (err error) {
 		Memo:          j.Memo,
 		NetworkId:     j.NetworkId,
 		ChainId:       j.ChainId,
+		Nonce:         j.Nonce,
 	}
 	// exit
 	return
@@ -333,6 +339,7 @@ type jsonTxResult struct {
 	Index       uint64       `json:"index,omitempty"`
 	Transaction *Transaction `json:"transaction,omitempty"`
 	TxHash      string       `json:"txHash,omitempty"`
+	Committed   *bool        `json:"committed,omitempty"`
 }
 
 // MarshalJSON() satisfies the json.Marshaller interface
@@ -345,6 +352,7 @@ func (x TxResult) MarshalJSON() ([]byte, error) {
 		Index:       x.Index,
 		Transaction: x.Transaction,
 		TxHash:      x.TxHash,
+		Committed:   x.Committed,
 	})
 }
 
@@ -366,6 +374,7 @@ func (x *TxResult) UnmarshalJSON(jsonBytes []byte) (err error) {
 		Index:       j.Index,
 		Transaction: j.Transaction,
 		TxHash:      j.TxHash,
+		Committed:   j.Committed,
 	}
 	// exit
 	return
